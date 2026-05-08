@@ -1,0 +1,31 @@
+
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+vite v8.0.0-beta.16 building client environment for production...
+[2Ktransforming...✓ 33 modules transformed.
+✗ Build failed in 137ms
+error during build:
+Build failed with 1 error:
+
+[plugin vite:css] /Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/src/index.css:67:4
+CssSyntaxError: [postcss] /Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/src/index.css:67:5: @apply should not be used with the 'group' utility
+    at Input.error (/Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/postcss/lib/input.js:135:16)
+    at AtRule.error (/Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/postcss/lib/node.js:146:32)
+    at processApply (/Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/tailwindcss/lib/lib/expandApplyAtRules.js:377:29)
+    at /Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/tailwindcss/lib/lib/expandApplyAtRules.js:551:9
+    at /Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/tailwindcss/lib/processTailwindFeatures.js:55:50
+    at async plugins (/Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/tailwindcss/lib/plugin.js:38:17)
+    at async LazyResult.runAsync (/Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/postcss/lib/lazy-result.js:293:11)
+    at async runPostCSS (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/vite/dist/node/chunks/node.js:21288:19)
+    at async compilePostCSS (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/vite/dist/node/chunks/node.js:21272:6)
+    at async compileCSS (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/vite/dist/node/chunks/node.js:21202:26)
+    at aggregateBindingErrorsIntoJsError (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/rolldown/dist/shared/error-BYPsvVEN.mjs:52:18)
+    at unwrapBindingResult (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/rolldown/dist/shared/error-BYPsvVEN.mjs:22:128)
+    at #build (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/rolldown/dist/shared/rolldown-build-BsRSEDqH.mjs:3356:34)
+    at async buildEnvironment (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/vite/dist/node/chunks/node.js:32703:64)
+    at async Object.build (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/vite/dist/node/chunks/node.js:33125:19)
+    at async Object.buildApp (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/vite/dist/node/chunks/node.js:33122:153)
+    at async CAC.<anonymous> (file:///Users/bijaypokhrel/bijaypokhrel05.github.io/frontend/node_modules/vite/dist/node/cli.js:642:3) {
+  errors: [Getter/Setter]
+}

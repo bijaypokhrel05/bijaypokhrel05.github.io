@@ -1,33 +1,55 @@
-# Dev Landing Page
+# Bijay Pokhrel Darji - Portfolio
 
-Minimal landing page for developers.
+A high-performance, interactive portfolio built with React, Three.js, and Framer Motion. This site features a technical terminal-inspired design with real-time 3D backgrounds and dynamic UI animations.
 
-Developers don't talk much. Their code does all the talking. So here's a minimal landing page for developers.
+## Quick Start
 
-## Why? [![start with why](https://img.shields.io/badge/start%20with-why%3F-brightgreen.svg?style=flat)](http://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action)
+The entire project is contained within the `frontend/` directory.
 
-I wanted a dev landing page to showcase everything I do online and I wanted it to be minimal and right to the point rather beautiful and hefty. And I think most of the devs out there would want the same.
+```bash
+# Navigate to the project
+cd frontend
 
-So I sat down one night and created this **Dev Landing Page**. Feel free to fork, clone, play around and make this your own.
+# Install dependencies
+npm install
 
-If none of these themes fit within your taste, it's quite easy to customize and create your own too. 
+# Start development server
+npm run dev
+```
 
-## GitHub Pages
+The app will be available at `http://localhost:5173`.
 
-GitHub makes it easy to create personal websites. Follow this link - [GitHub Pages](https://pages.github.com/) to know how or follow the steps below.
+## Core Technologies
 
-If you already have a GitHub profile (obviously)
+- **Frontend**: React 19 + Vite
+- **3D Graphics**: Three.js (Interactive particle backgrounds)
+- **Animations**: Framer Motion (Floating terminals & role-cycling effects)
+- **Styling**: Tailwind CSS (Premium glassmorphism & dark-mode-first design)
+- **Form Handling**: Formspree (Serverless contact form integration)
 
-* Create a new repo with the name `{username}.github.io`
-* Clone/Fork this repo and copy the files to your newly created repo
-* Customize your name, links and everything else for your landing page
-* `git push`
+## Project Structure
 
-Voila! Your site should be live at `https://{username}.github.io`
+```
+├── frontend/               # Main application directory
+│   ├── src/
+│   │   ├── components/     # UI Components
+│   │   │   ├── layout/     # Header, Footer, Navigation
+│   │   │   └── sections/   # Hero, About, Projects, Skills, Experience
+│   │   ├── context/        # ThemeContext (Persistent Dark/Light mode)
+│   │   ├── App.tsx         # Main application entry
+│   │   └── index.css       # Global styles & theme variables
+│   ├── tailwind.config.js  # Design system & color palette
+│   └── vite.config.ts      # Vite configuration
+└── README.md               # Root documentation
+```
 
-Here's my **Dev Landing Page** - [Bijay Pokhrel](https://bijaypokhrel05.github.io/)
+## Features
 
-### Custom Domain
+- **Interactive Hero**: A Three.js particle system that reacts to mouse movement.
+- **Floating Terminals**: UI elements that gently hover using physics-based animations.
+- **Role Cycler**: A cinematic letter-by-letter transition for professional titles.
+- **Formspree Integration**: Fully functional contact form sending messages directly to Gmail.
+- **Persistent Theme**: User-preferred dark/light mode that stays active across sessions.
 
-If you want to make your new landing page available under a domain like `{username}.com` you can get started here - [Setting up a custom domain](https://help.github.com/articles/quick-start-setting-up-a-custom-domain/).
-
+---
+Built with technical excellence in mind.
