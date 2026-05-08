@@ -1,72 +1,162 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HeroBackground } from './HeroBackground';
+
+const roles = [
+  'Software Engineer',
+  'Fullstack Developer',
+  'Mobile App Developer',
+  'AI & Machine Learning Enthusiast'
+];
 
 export function Hero() {
-  const [email, setEmail] = useState('');
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 4800); // Increased time to allow for full letter animation
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen bg-hero-landing pt-24 pb-16 md:pt-28 md:pb-24"
-    >
-      <div className="hero-decor">
-        <div className="hero-decor-dots" aria-hidden />
-        <div className="hero-decor-dashes" aria-hidden />
-      </div>
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-gutter py-20 overflow-hidden hero-mesh" id="hero">
+      {/* Three.js Background Animation */}
+      <HeroBackground />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 md:px-8 lg:grid-cols-2 lg:gap-16">
+      {/* Background Glows */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px] -z-10 animate-pulse" style={{ animationDelay: '2s' }}></div>
+
+      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-xl items-center relative z-10">
+        {/* Branding & Intro */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-xl"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="space-y-6 text-left"
         >
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-[var(--color-text)] md:text-5xl lg:text-[2.75rem] lg:leading-[1.2]">
-            Building digital products, brands{' '}
-            <span className="inline-flex items-center gap-1.5">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-on-accent)] md:h-9 md:w-9">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-              </span>
-              <span className="text-[var(--color-accent)]">experience.</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high border border-white/10 rounded-full">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
+            <span className="font-code-sm text-primary text-[10px] tracking-widest uppercase opacity-80">v2.0.4 stable_release</span>
+          </div>
+          <h1 className="font-h1 text-5xl md:text-6xl lg:text-7xl text-on-surface leading-[1.1] tracking-tight font-bold">
+            Bijay Pokhrel <br />Darji
           </h1>
-          <p className="mt-6 text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg md:leading-8">
-            A Software Engineer who loves systems, data, and clean code. I specialize in Full-Stack Development, UI/UX-minded interfaces, and building maintainable, scalable software.
+
+          <div className="h-8 flex items-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={roleIndex}
+                className="flex"
+              >
+                {roles[roleIndex].split('').map((char, index) => (
+                  <motion.span
+                    key={`${roleIndex}-${index}`}
+                    initial={{ opacity: 0, scale: 0.5, filter: 'blur(10px)' }}
+                    animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, scale: 1.5, filter: 'blur(10px)' }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.04,
+                      ease: "easeOut"
+                    }}
+                    className="font-code-md text-secondary font-medium tracking-wide uppercase text-sm md:text-base inline-block whitespace-pre"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <p className="font-body-lg text-lg text-on-surface-variant max-w-md leading-relaxed opacity-90">
+            Crafting high-performance <span className="text-secondary font-semibold">full-stack solutions</span> with a focus on technical excellence and elegant architecture.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch">
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="min-w-0 flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3.5 text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
-            />
-            <button
-              type="button"
-              className="rounded-lg bg-[var(--color-accent)] px-6 py-3.5 font-semibold text-[var(--color-on-accent)] transition hover:bg-[var(--color-accent-hover)]"
+          <div className="flex flex-wrap gap-4 pt-4">
+            <a
+              className="px-8 py-4 bg-secondary text-surface-container-lowest font-bold rounded-xl hover:scale-105 transition-all shadow-lg shadow-secondary/20"
+              href="#projects"
             >
-              Connect With Me
-            </button>
+              View Projects
+            </a>
+            <a
+              className="px-8 py-4 border border-white/20 text-white font-bold rounded-xl hover:bg-white/5 transition-all backdrop-blur-sm"
+              href="#contact"
+            >
+              Initialize Contact
+            </a>
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative flex justify-center lg:justify-end"
-        >
-          <div className="relative aspect-[4/5] w-full max-w-[320px] overflow-hidden rounded-2xl bg-[var(--color-bg)] md:max-w-[380px]">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-serif text-8xl font-semibold text-[var(--color-accent)]/15 md:text-9xl">
-                BP
-              </span>
+        {/* Terminal Layout */}
+        <div className="relative group lg:ml-auto">
+          {/* Terminal Window 1: Introduction */}
+          <motion.div
+            animate={{
+              y: [0, -15, 0],
+              rotate: [3, 4, 3]
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="terminal-window w-full max-w-[500px] rounded-xl p-0 overflow-hidden shadow-2xl relative z-20"
+          >
+            <div className="bg-white/5 px-5 py-3 flex justify-between items-center border-b border-white/10">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full terminal-dot-red"></div>
+                <div className="w-3 h-3 rounded-full terminal-dot-yellow"></div>
+                <div className="w-3 h-3 rounded-full terminal-dot-green"></div>
+              </div>
+              <span className="font-code-sm text-[10px] text-white/30 uppercase tracking-[0.2em]">bash — whoami</span>
             </div>
-            {/* Placeholder: replace with <img src="/your-photo.jpg" alt="Bijay Pokhrel" className="h-full w-full object-cover" /> */}
-          </div>
-        </motion.div>
+            <div className="p-8 font-code-md text-sm space-y-4 leading-relaxed bg-[#0d131f]/80 backdrop-blur-xl">
+              <div className="flex gap-3">
+                <span className="text-secondary">$</span>
+                <p className="text-white">cat intro.md</p>
+              </div>
+              <p className="text-primary font-bold"># Software Engineer</p>
+              <p className="text-on-surface opacity-80">I build scalable web applications and explore the intersection of AI and user experience.</p>
+              <p className="text-on-surface-variant opacity-70 italic">Located in Nepal. Passionate about TypeScript, React, and high-performance backend systems.</p>
+              <div className="flex gap-2 items-center">
+                <span className="text-secondary">$</span>
+                <span className="animate-pulse bg-primary w-2.5 h-5"></span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Floating Window 2: Small Status */}
+          <motion.div
+            animate={{
+              y: [0, 15, 0],
+              rotate: [-2, -3, -2]
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5
+            }}
+            className="absolute -bottom-10 -left-10 w-56 terminal-window rounded-xl p-0 hidden md:block shadow-2xl z-30"
+          >
+            <div className="bg-white/5 px-4 py-2 flex gap-1.5 border-b border-white/10">
+              <div className="w-2.5 h-2.5 rounded-full terminal-dot-red opacity-50"></div>
+              <div className="w-2.5 h-2.5 rounded-full terminal-dot-yellow opacity-50"></div>
+            </div>
+            <div className="p-5 font-code-sm text-xs space-y-1.5 bg-[#0d131f]/90 backdrop-blur-md">
+              <p className="text-secondary flex justify-between"><span>Uptime:</span> <span>99.9%</span></p>
+              <p className="text-primary flex justify-between"><span>Coffee:</span> <span>Active</span></p>
+            </div>
+          </motion.div>
+
+          {/* Terminal Shadow */}
+          <div className="absolute inset-0 bg-primary/10 blur-[100px] -z-10 animate-pulse"></div>
+        </div>
       </div>
     </section>
   );

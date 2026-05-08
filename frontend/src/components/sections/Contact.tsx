@@ -1,116 +1,112 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import type { ContactFormData } from '../../types';
-
-const API_BASE = import.meta.env.VITE_API_URL ?? '';
-
-const initialForm: ContactFormData = { name: '', email: '', message: '' };
+import { useForm, ValidationError } from '@formspree/react';
 
 export function Contact() {
-  const [form, setForm] = useState<ContactFormData>(initialForm);
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus('sending');
-    setErrorMessage('');
-    try {
-      const res = await fetch(`${API_BASE}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setErrorMessage(data.message ?? 'Something went wrong.');
-        setStatus('error');
-        return;
-      }
-      setForm(initialForm);
-      setStatus('success');
-    } catch {
-      setErrorMessage('Network error. Please try again.');
-      setStatus('error');
-    }
-  }
+  const [state, handleSubmit] = useForm('xgodlgqp');
 
   return (
-    <section id="contact" className="border-t border-[var(--color-border)] bg-[var(--color-bg)] py-20 px-6 md:py-28">
-      <div className="mx-auto max-w-2xl">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="section-heading mb-10 text-2xl md:text-3xl"
-        >
-          Contact
-        </motion.h2>
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          onSubmit={handleSubmit}
-          className="space-y-5"
-        >
+    <section className="max-w-[1200px] mx-auto px-6 mb-24 scroll-mt-32" id="contact">
+      <div className="bg-surface-container border border-outline-variant rounded-2xl p-10 md:p-16">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <label htmlFor="name" className="mb-1 block text-sm font-medium text-[var(--color-text)]">
-              Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              required
-              value={form.name}
-              onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
-              placeholder="Your name"
-            />
+            <h2 className="font-h1 text-4xl mb-6">Let's build something <span className="text-secondary italic">exceptional</span>.</h2>
+            <p className="text-on-surface-variant mb-10 max-w-md">Available for engineering roles or collaborative projects. Let's talk about how I can contribute to your team.</p>
+            
+            <div className="space-y-4">
+              <a className="flex items-center gap-4 group" href="mailto:bijay.pokhrel05@gmail.com">
+                <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                  <span className="material-symbols-outlined">alternate_email</span>
+                </div>
+                <span className="font-code-sm text-sm group-hover:text-primary transition-colors">bijay.pokhrel05@gmail.com</span>
+              </a>
+              
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded bg-secondary/10 flex items-center justify-center text-secondary">
+                  <span className="material-symbols-outlined">phone</span>
+                </div>
+                <span className="font-code-sm text-sm">9825300409</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+                  <span className="material-symbols-outlined">location_on</span>
+                </div>
+                <span className="font-code-sm text-sm">Kupondole, Lalitpur, Nepal</span>
+              </div>
+            </div>
           </div>
-          <div>
-            <label htmlFor="email" className="mb-1 block text-sm font-medium text-[var(--color-text)]">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              value={form.email}
-              onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-              className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
-              placeholder="you@example.com"
-            />
+          
+          <div className="bg-surface-container-highest p-8 rounded-xl border border-outline-variant relative overflow-hidden">
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div>
+                <label className="font-label-caps text-[10px] text-outline mb-1 block" htmlFor="full-name">Full Name</label>
+                <input 
+                  id="full-name"
+                  name="name"
+                  required
+                  className="w-full bg-background border-outline-variant focus:border-secondary focus:ring-0 rounded-lg text-sm p-3 text-white placeholder:text-white/20" 
+                  type="text" 
+                  placeholder="Your Name"
+                />
+                <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-[10px] mt-1" />
+              </div>
+              <div>
+                <label className="font-label-caps text-[10px] text-outline mb-1 block" htmlFor="email">Email Address</label>
+                <input 
+                  id="email"
+                  name="email"
+                  required
+                  className="w-full bg-background border-outline-variant focus:border-secondary focus:ring-0 rounded-lg text-sm p-3 text-white placeholder:text-white/20" 
+                  type="email" 
+                  placeholder="your@email.com"
+                />
+                <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-[10px] mt-1" />
+              </div>
+              <div>
+                <label className="font-label-caps text-[10px] text-outline mb-1 block" htmlFor="message">Message</label>
+                <textarea 
+                  id="message"
+                  name="message"
+                  required
+                  className="w-full bg-background border-outline-variant focus:border-secondary focus:ring-0 rounded-lg text-sm p-3 text-white placeholder:text-white/20" 
+                  rows={4}
+                  placeholder="Tell me about your project..."
+                ></textarea>
+                <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-[10px] mt-1" />
+              </div>
+              
+              <button 
+                type="submit"
+                disabled={state.submitting}
+                className="w-full bg-secondary text-on-secondary font-bold py-3 rounded-lg hover:brightness-110 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-lg shadow-secondary/20 disabled:opacity-50"
+              >
+                {state.submitting ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-on-secondary border-t-transparent rounded-full animate-spin"></span>
+                    Transmitting...
+                  </>
+                ) : (
+                  'Execute Contact'
+                )}
+              </button>
+            </form>
+
+            {state.succeeded && (
+              <div className="absolute inset-0 bg-surface-container-highest/98 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 animate-in fade-in zoom-in duration-300">
+                <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 mb-6">
+                  <span className="material-symbols-outlined text-5xl">check_circle</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-white">Message Delivered!</h3>
+                <p className="text-sm text-on-surface-variant mb-8 max-w-[250px]">I have received your transmission and will get back to you shortly.</p>
+                <button 
+                  onClick={() => window.location.reload()} // Simple reset
+                  className="px-6 py-2 border border-secondary text-secondary rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-secondary hover:text-on-secondary transition-all"
+                >
+                  Send another message
+                </button>
+              </div>
+            )}
           </div>
-          <div>
-            <label htmlFor="message" className="mb-1 block text-sm font-medium text-[var(--color-text)]">
-              Message
-            </label>
-            <textarea
-              id="message"
-              required
-              rows={4}
-              value={form.message}
-              onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-              className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
-              placeholder="Your message..."
-            />
-          </div>
-          {status === 'error' && (
-            <p className="text-sm font-medium text-red-600">{errorMessage}</p>
-          )}
-          {status === 'success' && (
-            <p className="text-sm font-medium text-[var(--color-sage)]">Message sent. I'll get back to you soon.</p>
-          )}
-          <button
-            type="submit"
-            disabled={status === 'sending'}
-            className="btn-primary rounded-lg px-6 py-3 text-sm disabled:opacity-50"
-          >
-            {status === 'sending' ? 'Sending…' : 'Send Message'}
-          </button>
-        </motion.form>
+        </div>
       </div>
     </section>
   );

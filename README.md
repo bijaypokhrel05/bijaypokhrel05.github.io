@@ -1,50 +1,55 @@
-# Portfolio — Bijay Pokhrel
+# Bijay Pokhrel Darji - Portfolio
 
-Professional software engineer portfolio: single-page app (React + Vite + TypeScript) with Express backend.
+A high-performance, interactive portfolio built with React, Three.js, and Framer Motion. This site features a technical terminal-inspired design with real-time 3D backgrounds and dynamic UI animations.
 
-## Stack
+## Quick Start
 
-- **Frontend:** React 19, TypeScript, Vite, Tailwind CSS, Framer Motion  
-- **Backend:** Express, TypeScript (Node)
+The entire project is contained within the `frontend/` directory.
 
-## Run locally
+```bash
+# Navigate to the project
+cd frontend
 
-1. **Backend** (API + contact form + projects data):
-   ```bash
-   cd backend && npm install && npm run dev
-   ```
-   Server: `http://localhost:3001`
+# Install dependencies
+npm install
 
-2. **Frontend** (SPA with proxy to backend):
-   ```bash
-   cd frontend && npm install && npm run dev
-   ```
-   App: `http://localhost:5173`
+# Start development server
+npm run dev
+```
 
-In development, the frontend proxies `/api` to the backend. For production, set `VITE_API_URL` to your API origin (see `frontend/.env.example`).
+The app will be available at `http://localhost:5173`.
 
-## Project layout
+## Core Technologies
+
+- **Frontend**: React 19 + Vite
+- **3D Graphics**: Three.js (Interactive particle backgrounds)
+- **Animations**: Framer Motion (Floating terminals & role-cycling effects)
+- **Styling**: Tailwind CSS (Premium glassmorphism & dark-mode-first design)
+- **Form Handling**: Formspree (Serverless contact form integration)
+
+## Project Structure
 
 ```
-├── frontend/           # React SPA
+├── frontend/               # Main application directory
 │   ├── src/
-│   │   ├── components/  # layout + sections (Hero, About, Skills, etc.)
-│   │   ├── context/    # ThemeContext (dark/light, persisted)
-│   │   └── types/
-│   └── ...
-├── backend/
-│   ├── src/
-│   │   ├── data/       # projects.json
-│   │   ├── server.ts
-│   │   └── types.ts
-│   └── ...
-└── README.md
+│   │   ├── components/     # UI Components
+│   │   │   ├── layout/     # Header, Footer, Navigation
+│   │   │   └── sections/   # Hero, About, Projects, Skills, Experience
+│   │   ├── context/        # ThemeContext (Persistent Dark/Light mode)
+│   │   ├── App.tsx         # Main application entry
+│   │   └── index.css       # Global styles & theme variables
+│   ├── tailwind.config.js  # Design system & color palette
+│   └── vite.config.ts      # Vite configuration
+└── README.md               # Root documentation
 ```
 
 ## Features
 
-- Single-page app with smooth scroll and section navigation  
-- Dark / light theme toggle (preference stored in `localStorage`)  
-- Hero with animated typing titles  
-- About, Skills (categorized), Featured Projects (from API), Engineering Philosophy, Contact  
-- Contact form submitted via Express; project data served from backend
+- **Interactive Hero**: A Three.js particle system that reacts to mouse movement.
+- **Floating Terminals**: UI elements that gently hover using physics-based animations.
+- **Role Cycler**: A cinematic letter-by-letter transition for professional titles.
+- **Formspree Integration**: Fully functional contact form sending messages directly to Gmail.
+- **Persistent Theme**: User-preferred dark/light mode that stays active across sessions.
+
+---
+Built with technical excellence in mind.
