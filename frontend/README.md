@@ -1,3 +1,16 @@
+# Portfolio Frontend
+
+Professional software engineer portfolio SPA (React, TypeScript, Vite, Tailwind, Framer Motion).
+
+## Run
+
+- **Frontend:** `npm run dev` (proxies `/api` to backend at `http://localhost:3001`)
+- **Backend:** From repo root run `cd backend && npm install && npm run dev`
+
+Set `VITE_API_URL` in `.env` if the API is on another origin (e.g. production).
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
